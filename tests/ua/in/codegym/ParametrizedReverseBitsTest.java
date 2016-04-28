@@ -6,9 +6,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
-import java.util.Iterator;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by admin on 27.04.2016.
