@@ -9,8 +9,10 @@ public class Main {
 
         ReverseBits reverseBits = new ReverseBits();
         CountBits countBits = new CountBits();
+        AddBinary addBinary = new AddBinary();
 
         //System.out.println(reverseBits.reverse(2));
-        System.out.println(countBits.count(-1));
+        //System.out.println(countBits.count(-1));
+        System.out.println(addBinary.add("101", "100"));
     }
 }
