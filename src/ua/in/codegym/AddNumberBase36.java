@@ -9,31 +9,39 @@ import java.util.Map;
  */
 public class AddNumberBase36 {
 
-    public static String add(String a, String b) {
+    public String add(String a, String b) {
 
+        //Карта соответствия символов цифрам
         final Map<Character, Integer> system36 = new HashMap<>();
 
+        //Цифры
         for (int i = 0; i <= 9; i++) {
             system36.put((char) (i + 48), i);
         }
+        //Буквы, маленькие и большие
         for (int i = 10; i <= 35; i++) {
             system36.put((char) (i + 55), i);
             system36.put((char) (i + 87), i);
         }
 
+        //Массив результата (размер - больший аргумент + 1). Заполнение его нулями
         char[] result = new char[Math.max(a.length(), b.length()) + 1];
         Arrays.fill(result, '0');
 
+        //Массив - операнд 'a', набор в обратном порядке
         char[] operandA = copyFromEnd(a.toCharArray(), result.length - 1);
-
+        //Массив - операнд 'b', набор в обратном порядке
         char[] operandB = copyFromEnd(b.toCharArray(), result.length - 1);
 
-
+        //Расчёт
         for (int i = result.length - 1; i > 0; i--) {
 
+            //Сложение посимвольно аргументы и результат(длинна массива result на разряд больше)
             int simpleSum = system36.get(result[i]) + system36.get(operandA[i - 1])
                     + system36.get(operandB[i - 1]);
 
+            //Если посимвольный результат больше чем 36, то в следующий резряд результата
+            //записать 1, а в текущий остаток
             if (simpleSum <= system36.get('z')) {
                 result[i] = Character.toLowerCase(getKey(system36, simpleSum));
             } else {
@@ -52,6 +60,13 @@ public class AddNumberBase36 {
         return stringResult.toString();
     }
 
+    /**
+     * Копирование массива в обратном порядке с заданием нового размера
+     * @param source Исходный массив
+     * @param newSize Новый размер массива. Если больше чем исходный массив,
+     *                то разультирующий будет дополнен нулями
+     * @return Новый массив
+     */
     private static char[] copyFromEnd(char[] source, int newSize) {
         if (source.length > newSize) {
             return null;
@@ -65,6 +80,12 @@ public class AddNumberBase36 {
         return result;
     }
 
+    /**
+     * Поиск в map-колеекции ключа по значению
+     * @param map коллекция
+     * @param value значение, ключ которого нужно найти
+     * @return ключ
+     */
     private static char getKey(Map map, int value) {
 
         for (Object o : map.entrySet()) {
