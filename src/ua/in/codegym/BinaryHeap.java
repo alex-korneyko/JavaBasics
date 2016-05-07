@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by admin on 05.05.2016.
+ * Реалізуйте структуру даних  - Бінарна Купа (Binary Heap).
+ * Конструктор проймає один параметр size.
+ * Методи insert(int) що працює за O(logN) і poll(),
+ * який видаляє і повертає максимальне число з купи і також працює за O(logN).
+ * Created by Alex Korneyko on 05.05.2016.
  */
 public class BinaryHeap {
 
@@ -16,20 +20,22 @@ public class BinaryHeap {
     }
 
     public void insert(int val) {
-        if (heap.size() < size) {
+
+        if(heap.size() == 0) {
             heap.add(val);
+            return;
+        }
+
+        int upperPosition = heap.size() - 1;
+        int lowerPosition = heap.size() - 1;
+
+        while (true) {
+
         }
     }
 
     public int poll() {
 
-        int max = heap.get(0);
-        for (int i = 1; i < heap.size(); i++) {
-            if (max < heap.get(i)) {
-                max = heap.get(i);
-                heap.remove(i);
-            }
-        }
-        return max;
+        return 0;
     }
 }
