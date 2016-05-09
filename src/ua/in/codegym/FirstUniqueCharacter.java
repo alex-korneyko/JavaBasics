@@ -13,8 +13,6 @@ public class FirstUniqueCharacter {
 
     public Character find(String s) {
 
-        Character result;
-
         Map<Character, Integer> charMap = new HashMap<>();
 
         for (char symbol : s.toCharArray()) {
