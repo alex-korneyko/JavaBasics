@@ -40,8 +40,12 @@ public class Doubles {
 
         if (mainNumber.substring(0, 1).equals(".") && !exponent.equals("")) return null;
 
-        mainNumberDouble = Double.parseDouble(mainNumber.equals("") ? "0" : mainNumber);
-        exponentInteger = Integer.parseInt(exponent.equals("") ? "0" : exponent);
+        try {
+            mainNumberDouble = Double.parseDouble(mainNumber.equals("") ? "0" : mainNumber);
+            exponentInteger = Integer.parseInt(exponent.equals("") ? "0" : exponent);
+        } catch (NumberFormatException e) {
+            return null;
+        }
 
         return mainNumberDouble * Math.pow(10, exponentInteger);
     }
