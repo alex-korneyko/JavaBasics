@@ -1,6 +1,5 @@
 package ua.in.codegym;
 
-import java.util.Comparator;
 
 /**
  * Дано ланки трьох кольорів: білого і 1 м завдовжки, жовтого - 2 м і червоного - 3 м.
