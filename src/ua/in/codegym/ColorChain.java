@@ -11,17 +11,8 @@ package ua.in.codegym;
 public class ColorChain {
     public int count(int N) {
 
-        int length = N;
-        int wayCount = 0;
-
-        for (int i = 1; i <= 3; i++) {
-            if (length <= i) {
-                wayCount++;
-                length -= i;
-
-            }
-        }
-
-        return wayCount;
+        if (N <= 2) return N;
+        if (N == 3) return 4;
+        return count(N - 1) + count(N - 2) + count(N - 3);
     }
 }

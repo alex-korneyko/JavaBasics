@@ -8,9 +8,6 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Alex Korneyko on 11.05.2016.
- */
 @RunWith(value = Parameterized.class)
 public class ParametrizedColorChainTest {
 
@@ -27,9 +24,13 @@ public class ParametrizedColorChainTest {
     public static Iterable<Object[]> getParameters() {
         return Arrays.asList(new Object[][]{
                 {1, 1},
+                {2, 2},
                 {3, 4},
                 {4, 7},
-                {5, 13}
+                {5, 13},
+                {6, 24},
+                {7, 44},
+                {8, 81}
         });
     }
 
