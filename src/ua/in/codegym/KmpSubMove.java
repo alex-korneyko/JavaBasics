@@ -1,6 +1,5 @@
 package ua.in.codegym;
 
-import java.util.Arrays;
 
 /**
  * Created by Alex Korneyko on 22.05.2016.
