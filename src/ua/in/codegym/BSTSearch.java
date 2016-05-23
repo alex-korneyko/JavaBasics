@@ -1,6 +1,9 @@
 package ua.in.codegym;
 
 /**
+ * Знайти число в бінарному дереві пошуку і повернути true якщо воно присутнє, інакше повернути false.
+ * http://codegym.in.ua/problem/55dc5265450cee3f585e5902
+ * <p>
  * Created by Alex Korneyko on 23.05.2016.
  */
 public class BSTSearch {
