@@ -1,7 +1,6 @@
 package ua.in.codegym;
 
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 /**
@@ -18,9 +17,24 @@ public class KmpSmallestPeriod {
 
     public String findSmalletstPeriod(String input) {
 
+        //Мапа, где ключи - все возможные сочетания символов, значения - сколько раз повторяются эти сочетания
         Map<String, Integer> periods = new HashMap<>();
+        //Массив символов из входной строки
         char[] charInput = input.toCharArray();
+        //Набор символов, присутствующих в входной строке
+        Set<Character> characterSet = new HashSet<>();
+        //Коллекция ключей мапы для сочетаний, которые будут отфильтровываться по условиям
+        List<String> wrongKeys = new ArrayList<>();
 
+        int maxPeriod = 0;
+        int maxRepetitions = 0;
+
+        //Получение набора символов
+        for (char symbol : charInput) {
+            characterSet.add(symbol);
+        }
+
+        //Заполнение мапы всеми возможными сочетаниями и их количеством, если сочетания повторяются
         for (int i = 0; i < charInput.length; i++) {
             for (int j = i + 1; j <= charInput.length; j++) {
                 String subString = input.substring(i, j);
@@ -32,34 +46,35 @@ public class KmpSmallestPeriod {
             }
         }
 
-        List<String> wrongKeys = new ArrayList<>();
-
-        wrongKeys.addAll(periods.keySet().stream().filter(key -> input.charAt(0) != key.charAt(0)).collect(Collectors.toList()));
+        //Поиск и удаление сочетаний, в которых отсутствуют все возможные символы из входной строки
+        //или у сочетания первая буква не совпадает с первой буквой входной строки
+        periods.keySet().stream().filter(key -> !containsAllFromCharSet(key, characterSet)
+                || key.charAt(0) != input.charAt(0)).filter(key -> !wrongKeys.contains(key)).forEach(wrongKeys::add);
         wrongKeys.forEach(periods::remove);
 
-        int maxPeriod = 0;
-        int maxRepetitions = 0;
-
-        for (String key: periods.keySet()){
-            if(periods.get(key) > maxRepetitions){
+        //Поск самых частоповторяемых сочетаний, и удаление всех остальных
+        //Самое частоповторяемое сочетание по логике должно быть самым коротким.
+        //Сначала поск максимума повторений среди оставшихся сочетаний
+        for (String key : periods.keySet()) {
+            if (periods.get(key) > maxRepetitions)
                 maxRepetitions = periods.get(key);
-            }
         }
 
+        //Поиск и удаление всех сочетаний не максимального числа повторений
         final int finalMaxRepetitions = maxRepetitions;
-        wrongKeys.addAll(periods.keySet().stream().filter(key -> periods.get(key) != finalMaxRepetitions).collect(Collectors.toList()));
+        wrongKeys.addAll(periods.keySet().stream().filter(key -> periods.get(key)!= finalMaxRepetitions).collect(Collectors.toList()));
         wrongKeys.forEach(periods::remove);
-
-        for(String key: periods.keySet()){
-            if(key.length() > maxPeriod)
-                maxPeriod=key.length();
-        }
-
-        final int finalMaxPeriod = maxPeriod;
-        wrongKeys.addAll(periods.keySet().stream().filter(key -> key.length() != finalMaxPeriod).collect(Collectors.toList()));
-        wrongKeys.forEach(periods::remove);
-
 
         return (String) periods.keySet().toArray()[0];
+    }
+
+    boolean containsAllFromCharSet(String testingString, Set<Character> charSet) {
+
+        for (Character symbol : charSet) {
+            if (!testingString.contains(symbol.toString()))
+                return false;
+        }
+
+        return true;
     }
 }
